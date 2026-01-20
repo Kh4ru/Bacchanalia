@@ -51,15 +51,13 @@ def hello_world():
         file = f"{r[4]}.mp3"
         song = Song(r[1],r[2],r[3],file,cover)
         results.append(song)
-    return render_template("client_debug_gui.html",songs=results,q=q,length=length)
+    return render_template("web_client.html",songs=results,q=q,length=length)
 
 @app.route('/play/<filename>')
 def get_audio(filename):
     return send_from_directory(songs_url, filename)
-#Regler le probleme avec les posters
+
 @app.route('/image/<filename>')
 def get_cover(filename):
     return send_from_directory(covers_url, filename)
 
-
-app.run(host="0.0.0.0",debug=True)

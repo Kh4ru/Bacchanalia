@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spautify</title>
+    <title>Bacchanlia</title>
 </head>
 <style>
   :root{
@@ -95,10 +95,14 @@
     border-radius: 999px;
     padding: 6px 10px;
   }
+  #logo{
+    width: 363px;
+  }
 </style>
 <body>
     <center>
-    <h1>Spautify v1</h1>
+    <img id="logo" src="{{ url_for('static', filename='img/logo.png') }}">
+    <p>This project is in Beta</p>
     <form method="get">
         <input type="text" id="sct" name="q" placeholder="Search some songs" value="{{q}}">
         <button type="submit">Search</button>
