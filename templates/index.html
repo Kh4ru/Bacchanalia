@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacchanlia</title>
+</head>
+<style>
+  @keyframes appear {
+    from{
+      bottom: -239px;
+    }
+    to{
+      bottom: 0px;
+    }
+    
+  }
+ :root{
+  --bg1:#0f1115;
+  --bg2:#07080b;
+
+  --card: rgba(255,255,255,.06);
+  --card2: rgba(255,255,255,.09);
+  --border: rgba(255,255,255,.12);
+
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.62);
+
+  --accent: #7CFF4A;
+  --accentSoft: rgba(124,255,74,.18);
+
+  --radius: 16px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  color:var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(900px 500px at 20% 10%, rgba(124,255,74,.10), transparent 60%),
+    radial-gradient(700px 400px at 90% 30%, rgba(124,255,74,.07), transparent 55%),
+    linear-gradient(135deg, var(--bg1), var(--bg2));
+  background-attachment: fixed;
+}
+
+/* ========= HERO (haut de page) ========= */
+.hero{
+  padding: 28px 16px 14px;
+  text-align:center;
+}
+
+#logo{
+  width: min(520px, 92vw);
+  display:block;
+  margin: 0 auto 10px;
+  filter: drop-shadow(0 18px 35px rgba(0,0,0,.6));
+}
+
+.subtitle{
+  color: var(--muted);
+  margin: 8px 0 12px;
+  font-size: 14px;
+}
+
+/* ====== Search bar + boutons ====== */
+.searchbar{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin: 10px auto 14px;
+}
+
+.searchbar input[type="text"]{
+  width: min(520px, 84vw);
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.25);
+  color: var(--text);
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.searchbar input[type="text"]::placeholder{ color: rgba(255,255,255,.45); }
+
+.searchbar input[type="text"]:focus{
+  border-color: rgba(124,255,74,.55);
+  box-shadow: 0 0 0 4px rgba(124,255,74,.12);
+}
+
+/* Boutons génériques */
+.btn{
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  color: var(--text);
+  padding: 11px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+
+.btn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(124,255,74,.45);
+  background: rgba(255,255,255,.12);
+}
+
+.btn:active{ transform: translateY(0px) scale(.99); }
+
+/* Bouton principal (Search) */
+.btn-primary{
+  border-color: rgba(124,255,74,.35);
+  background: rgba(124,255,74,.14);
+}
+
+.btn-primary:hover{
+  border-color: rgba(124,255,74,.60);
+  background: rgba(124,255,74,.18);
+}
+
+/* Déconnexion */
+.btn-danger{
+  border-color: rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  opacity: .92;
+}
+
+/* ========= LISTE DES CHANSONS ========= */
+.container{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 8px 16px 40px;
+}
+
+/* au lieu de barres pleine largeur, on centre et on “carte” */
+.r_song{
+  display:flex;
+  align-items:flex-start;
+  gap: 12px;
+
+  padding: 14px 16px;
+  margin: 10px auto;
+
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--card2), var(--card));
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+  transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+
+.r_song:hover{
+  transform: translateY(-2px);
+  border-color: rgba(124,255,74,.40);
+  box-shadow: 0 18px 55px rgba(0,0,0,.40);
+}
+
+/* Texte chanson */
+.r_song .title{
+  font-weight: 750;
+  letter-spacing: .2px;
+}
+.r_song .meta{
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* Bouton play plus stylé */
+.r_song button,
+.r_song .play-btn{
+  margin-left: auto;
+  padding: 9px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(124,255,74,.35);
+  background: rgba(124,255,74,.14);
+  color: var(--text);
+  cursor:pointer;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+.r_song button:hover,
+.r_song .play-btn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(124,255,74,.60);
+  background: rgba(124,255,74,.18);
+}
+
+/* ========= FOOTER ========= */
+.footer{
+  text-align:center;
+  color: rgba(255,255,255,.55);
+  padding: 16px 0 26px;
+  font-size: 13px;
+}
+
+/* mobile */
+@media (max-width: 520px){
+  .r_song{
+    padding: 12px 12px;
+    border-radius: 14px;
+  }
+  .r_song button{ padding: 8px 10px; }
+}
+.section-title{
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  margin: 18px 4px 12px;
+  color: rgba(255,255,255,.85);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title::before{
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(124,255,74,.6);
+}
+.footer .credit{
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,.5);
+}
+
+.hero{
+  position: relative; /* IMPORTANT */
+}
+
+.user-box{
+  position: absolute;
+  top: 16px;
+  right: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-box h3{
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+}
+
+/* mobile : on le descend un peu */
+@media (max-width: 520px){
+  .user-box{
+    top: 10px;
+    right: 12px;
+  }
+  .user-box h3{
+    display: none; /* optionnel : cache le texte sur mobile */
+  }
+}
+
+.r_song .meta{ text-align:left; }
+
+
+</style>
+<body>
+
+  <header class="hero">
+    <img id="logo" src="{{ url_for('static', filename='img/logo.png') }}" alt="Bacchanalia">
+    <p class="subtitle">A new way to listen music !</p>
+
+    <form class="searchbar" method="get">
+      <input type="text" id="sct" name="q" placeholder="Search some songs" value="{{ q }}">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    <div class="user-box">
+    <h3>Welcome, {{ session.name }}</h3>
+    <form class="logout" action="/logout" method="POST">
+      <button class="btn btn-danger" type="submit">Logout</button>
+    </form>
+  </div>
+
+  <main class="container">
+    <h2 class="section-title">Most popular songs</h2>
+    <div class="songs">
+      {% for song in songs %}
+        <div class="r_song">
+          <div class="info">
+            <div class="title">{{ song.title }}</div>
+            <div class="meta">{{ song.author }}</div>
+          </div>
+
+          <button class="play-btn" onclick="launch('/play/{{ song.file }}','/image/{{ song.cover }}')">
+            Play
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div id="player"></div>
+  </main>
+
+  <footer class="footer">
+  <div>Version <b style="color:rgba(124,255,74,.6)">1.5</b></div>
+  <div class="credit">Created by <b>Alexis Senepart</b></div>
+</footer>
+</body>
+<script src="{{ url_for('static', filename='js/playerjs.js') }}"></script>
+
+<script>
+    let global_volume = 0.4;
+    let player_on = false;
+    document.getElementById("sct").value = ""
+    let current_song = document.getElementById("current_song");
+    function launch(song,poster){
+        if(player_on){const iframe = document.getElementById('player');
+         if (iframe) iframe.remove();}
+        else{var player = new Playerjs({id:"player",poster:poster});}
+        player.api("file",song)
+    }
+</script>
+</html>
