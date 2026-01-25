@@ -1,5 +1,6 @@
 import sqlite3,os,bcrypt
 from flask import Flask,request,send_from_directory,render_template,url_for,session,redirect
+from datetime import timedelta
 songs_url = os.path.join(os.path.dirname(__file__), 'audios')
 covers_url = os.path.join(os.path.dirname(__file__), 'static/covers')
 
@@ -40,6 +41,7 @@ def search(text):
 
 app = Flask(__name__)
 app.secret_key = "itsasecretlol"
+app.permanent_session_lifetime = timedelta(days=30)
 
 @app.route("/")
 def hello_world():
@@ -58,6 +60,7 @@ def hello_world():
 
 @app.route("/login",methods=["GET","POST"])
 def login():
+    session.permanent = True
     if request.method == "POST":
         username = request.form["username"].strip()
         password = request.form["password"]

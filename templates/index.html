@@ -139,6 +139,7 @@ body{
 
 /* au lieu de barres pleine largeur, on centre et on “carte” */
 .r_song{
+  cursor: pointer;
   display:flex;
   align-items:flex-start;
   gap: 12px;
@@ -171,25 +172,6 @@ body{
   margin-top: 3px;
 }
 
-/* Bouton play plus stylé */
-.r_song button,
-.r_song .play-btn{
-  margin-left: auto;
-  padding: 9px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(124,255,74,.35);
-  background: rgba(124,255,74,.14);
-  color: var(--text);
-  cursor:pointer;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
-
-.r_song button:hover,
-.r_song .play-btn:hover{
-  transform: translateY(-1px);
-  border-color: rgba(124,255,74,.60);
-  background: rgba(124,255,74,.18);
-}
 
 /* ========= FOOTER ========= */
 .footer{
@@ -266,6 +248,18 @@ body{
 
 .r_song .meta{ text-align:left; }
 
+.cover{
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  object-fit: cover;
+
+  box-shadow: 0 6px 16px rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.12);
+  flex-shrink: 0;
+}
+
+
 
 </style>
 <body>
@@ -290,19 +284,17 @@ body{
     <h2 class="section-title">Most popular songs</h2>
     <div class="songs">
       {% for song in songs %}
-        <div class="r_song">
+        <div class="r_song" onclick="launch('/play/{{ song.file }}','/image/{{ song.cover }}')">
+           <img class="cover"
+         src="/image/{{ song.cover }}"
+         alt="{{ song.title }} cover">
           <div class="info">
             <div class="title">{{ song.title }}</div>
             <div class="meta">{{ song.author }}</div>
           </div>
-
-          <button class="play-btn" onclick="launch('/play/{{ song.file }}','/image/{{ song.cover }}')">
-            Play
-          </button>
         </div>
       {% endfor %}
     </div>
-
     <div id="player"></div>
   </main>
 
